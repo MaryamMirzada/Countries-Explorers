@@ -1,4 +1,5 @@
 import { Search, X } from "lucide-react";
+import SuggestCountry from "./SuggestCountry";
 
 export default function SearchBar({ searchCountry, setSearchCountry }) {
   const hasText = searchCountry.trim().length > 0;
@@ -21,6 +22,7 @@ export default function SearchBar({ searchCountry, setSearchCountry }) {
           </button>
         ) : null}
       </div>
+      <SuggestCountry setSearchCountry={{ setSearchCountry }} />
     </div>
   );
 }
