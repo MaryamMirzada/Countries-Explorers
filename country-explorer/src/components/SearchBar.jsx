@@ -1,28 +1,36 @@
 import { Search, X } from "lucide-react";
 import SuggestCountry from "./SuggestCountry";
-
 export default function SearchBar({ searchCountry, setSearchCountry }) {
   const hasText = searchCountry.trim().length > 0;
   return (
     <div>
-      <div className="glass mt-2 d-flex ">
+      <div
+        className="input mt-3 d-flex gap-2 justify-content-center align-items-center "
+        style={{ textAlign: "center" }}
+      >
         <span>
-          <Search size={20} style={{ color: "orange" }} />
+          <Search size={20} color="blue" />
         </span>
         <input
           type="text"
-          value={searchCountry}
+          placeholder="Search Country...."
           onChange={(e) => setSearchCountry(e.target.value)}
-          placeholder="Search Country"
-          className="flex-grow-1 mx-2"
+          value={searchCountry}
+          style={{ width: 440, height: 40 }}
         />
         {hasText ? (
-          <button onClick={() => setSearchCountry("")}>
-            <X size={16} />
+          <button
+            className="btn btn-primary"
+            style={{ height: 40 }}
+            onClick={() => setSearchCountry("")}
+          >
+            <X size="20" />
           </button>
-        ) : null}
+        ) : (
+          ""
+        )}
       </div>
-      <SuggestCountry setSearchCountry={{ setSearchCountry }} />
+      <SuggestCountry country={searchCountry} setCountry={setSearchCountry} />
     </div>
   );
 }
