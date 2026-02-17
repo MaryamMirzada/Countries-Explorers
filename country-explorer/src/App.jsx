@@ -8,6 +8,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [countries, setCountries] = useState([]);
+  const [region, setRegion] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
