@@ -4,25 +4,43 @@ import SearchBar from "./components/SearchBar";
 
 
 function App() {
-  const [searchCountry, setSearchCountry] = useState("All");
+  const [searchCountry, setSearchCountry] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [countries, setCountries] = useState([]);
-  const [region, setRegion] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
         setError(null);
-        let url ; 
-        const fetching = await fetch(
-          `https://restcountries.com/v3.1/${
-            searchCountry.toLowerCase() === "all"
-              ? "all"
-              : "name/" + searchCountry
-          }?fields=name,flags,region,population`
-        );
+
+        // const fetching = await fetch(
+        //   `https://restcountries.com/v3.1/${
+        //     searchCountry.toLowerCase() === "all"
+        //       ? "all"
+        //       : "name/" + searchCountry
+        //   }?fields=name,flags,region,population`
+        // );
+        let url = "";
+        if (searchCountry.toLowerCase() === "all") {
+          url =
+            "https://restcountries.com/v3.1/all?fields=name,flags,region,population";
+        } else if (
+          searchCountry === "Africa" ||
+          searchCountry === "Americas" ||
+          searchCountry === "Asia" ||
+          searchCountry === "Europe" ||
+          searchCountry === "Oceania"
+        ) {
+          // اگر قاره باشد
+          url = `https://restcountries.com/v3.1/region/${searchCountry}?fields=name,flags,region,population`;
+        } else {
+          // اگر نام کشور باشد
+          url = `https://restcountries.com/v3.1/name/${searchCountry}?fields=name,flags,region,population`;
+        }
+
+        const fetching = await fetch(url);
 
         if (!fetching.ok) throw new Error("something wrong");
         const res = await fetching.json();
